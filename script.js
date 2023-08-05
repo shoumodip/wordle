@@ -94,7 +94,6 @@ function pressKey(game, key) {
         return
       }
 
-      game.absent.clear()
       game.needed.clear()
 
       for (let i = 0; i < game.word.length; i++) {
@@ -122,8 +121,16 @@ function pressKey(game, key) {
         }
       }
 
-      for (const [key, _] of game.needed) {
-        game.absent.add(key)
+      for (let i = 0; i < word.length; i++) {
+        if (game.colors[game.row][i] == ABSENT_COLOR) {
+          game.absent.add(word.charAt(i))
+        }
+      }
+
+      for (let i = 0; i < word.length; i++) {
+        if (game.colors[game.row][i] != ABSENT_COLOR) {
+          game.absent.delete(word.charAt(i))
+        }
       }
 
       game.row++
